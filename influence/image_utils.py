@@ -13,6 +13,7 @@ from keras import backend as K
 
 sns.set(color_codes=True)
 
+
 def plot_flat_bwimage(X, y=None, pos_class=1, neg_class=-1, side=28):
     X = np.reshape(X, (side, side))
     if y is not None:
@@ -25,13 +26,16 @@ def plot_flat_bwimage(X, y=None, pos_class=1, neg_class=-1, side=28):
             plt.title('Label is %s' % label)
         plt.imshow(X, cmap='gray', interpolation='none')
 
+
 def plot_flat_bwgrad(X, side=28):
     X = np.reshape(X, (side, side))
     max_abs = np.max(np.abs(X))
     with sns.axes_style("white"):
         f, ax = plt.subplots()
-        colormap = ax.imshow(X, cmap='coolwarm', vmax=max_abs, vmin=-max_abs, interpolation='none')
+        colormap = ax.imshow(X, cmap='coolwarm', vmax=max_abs,
+                             vmin=-max_abs, interpolation='none')
         f.colorbar(colormap)
+
 
 def plot_flat_colorimage(X, y, pos_class=1, neg_class=-1, side=32):
     X = np.reshape(X, (side, side, 3))
@@ -40,11 +44,12 @@ def plot_flat_colorimage(X, y, pos_class=1, neg_class=-1, side=32):
     else:
         label = neg_class
     with sns.axes_style("white"):
-        f, ax = plt.subplots(figsize=(6,6))
-        ax.set_title('Label is %s' % label)        
-        ax.imshow(X, interpolation='none')  
-        # ax.imshow(X)        
+        f, ax = plt.subplots(figsize=(6, 6))
+        ax.set_title('Label is %s' % label)
+        ax.imshow(X, interpolation='none')
+        # ax.imshow(X)
         plt.show()
+
 
 def plot_flat_colorgrad(X, side=32):
     X = np.reshape(X, (side, side, 3))

@@ -2,6 +2,7 @@
 
 import numpy as np
 
+
 class DataSet(object):
 
     def __init__(self, x, labels):
@@ -33,7 +34,7 @@ class DataSet(object):
         return self._num_examples
 
     def reset_batch(self):
-        self._index_in_epoch = 0        
+        self._index_in_epoch = 0
         self._x_batch = np.copy(self._x)
         self._labels_batch = np.copy(self._labels)
 
@@ -67,27 +68,29 @@ def filter_dataset(X, Y, pos_class, neg_class):
     assert(len(Y.shape) == 1)
 
     Y = Y.astype(int)
-    
+
     pos_idx = Y == pos_class
-    neg_idx = Y == neg_class        
+    neg_idx = Y == neg_class
     Y[pos_idx] = 1
     Y[neg_idx] = -1
     idx_to_keep = pos_idx | neg_idx
     X = X[idx_to_keep, ...]
-    Y = Y[idx_to_keep]    
-    return (X, Y)    
+    Y = Y[idx_to_keep]
+    return (X, Y)
 
 
 def find_distances(target, X, theta=None):
-    assert len(X.shape) == 2, "X must be 2D, but it is currently %s" % len(X.shape)
+    assert len(X.shape) == 2, "X must be 2D, but it is currently %s" % len(
+        X.shape)
     target = np.reshape(target, -1)
     assert X.shape[1] == len(target), \
-      "X (%s) and target (%s) must have same feature dimension" % (X.shape[1], len(target))
-    
+        "X (%s) and target (%s) must have same feature dimension" % (
+            X.shape[1], len(target))
+
     if theta is None:
         return np.linalg.norm(X - target, axis=1)
     else:
         theta = np.reshape(theta, -1)
-        
+
         # Project onto theta
-        return np.abs((X - target).dot(theta))    
+        return np.abs((X - target).dot(theta))
